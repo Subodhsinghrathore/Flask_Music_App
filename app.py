@@ -5,6 +5,9 @@ from wtforms import Form,StringField,TextAreaField,PasswordField,validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired
+import os
+from bs4 import BeautifulSoup
+import requests
 
 app=Flask(__name__)
 name1=""
