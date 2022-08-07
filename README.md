@@ -28,6 +28,7 @@
     * Install the above given packages.
     * Replace the app.config['MYSQL_PASSWORD']='Enter your sqlpassword'( line 21 in app.py) with your sql password.
     * Replace my Email and password in config.cfg with your Email and password where confirmation email is sent so you can login to the app.
+    * If it gives an authentication error go to your email account and turn on for less secure app. Or create an App Password and use it.
     * Import the table.sql using above steps.
     * Then do python3 app.py.
     * open http://127.0.0.1:5000/ in Your local browser.
