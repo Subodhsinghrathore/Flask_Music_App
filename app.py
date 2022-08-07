@@ -86,6 +86,23 @@ def register():
 
     return render_template('register.html',form=form)
 
+
+#sending the confirmation link to email
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
+	cur=mysql.connection.cursor()
+	try:
+		email=s.loads(token,salt='email-confirm',max_age=3600)
+	except SignatureExpired:
+		flash('The confirmation link is invalid or has expired.','danger')
+	else:
+		cur.execute("INSERT INTO users(name,email,username,password) VALUES(%s,%s,%s,%s)",(name1,email1,usernname1,password1))
+		mysql.connection.commit()
+		cur.close()
+		flash('Successfully verified','success')
+	return redirect(url_for('login'))
+
+
 #login
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -118,6 +135,17 @@ def login():
             return render_template('login.html',error=error)
 
     return render_template('login.html')
+
+#to prevent using of app without login
+def is_logged_in(f):
+	@wraps(f)
+	def wrap(*args,**kwargs):
+		if 'logged_in' in session:
+			return f(*args,**kwargs)
+		else:
+			flash('unauthorised,please login','danger')
+			return redirect(url_for('login'))
+	return wrap
 
 if __name__=='__main__':
     app.secret_key='secret123'
