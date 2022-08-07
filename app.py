@@ -266,7 +266,40 @@ def play():
 		return render_template('home.html',albu=albu,song=songs)
 	cur.close()
 	return render_template('home.html',albu=albu)
-    
+
+@app.route('/KK')
+@is_logged_in
+def cam():
+		cur=mysql.connection.cursor()
+		cur.execute("SELECT * FROM songs_list WHERE album LIKE 'Cam%'")
+		albu1=cur.fetchall()
+		result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
+		songs=cur.fetchall()
+		if result>0:
+			return render_template('kk.html',songs=songs,albu=albu1)
+		else:
+			songs=0
+			return render_template('kk.html',albu=albu1,song=songs)
+		cur.close()
+		return render_template('kk.html',albu=albu1)
+
+@app.route('/CTRL')
+@is_logged_in
+def sza():
+		cur=mysql.connection.cursor()
+		cur.execute("SELECT * FROM songs_list WHERE album LIKE 'SZA%'")
+		albu2=cur.fetchall()
+		result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
+		songs=cur.fetchall()
+		if result>0:
+			return render_template('ctrl.html',songs=songs,albu=albu2)
+		else:
+			songs=0
+			return render_template('ctrl.html',albu=albu2,song=songs)
+		cur.close()
+		return render_template('ctrl.html',albu=albu2)
+
+
 @app.route('/BlackPanther')
 @is_logged_in
 def panther():
@@ -284,6 +317,23 @@ def panther():
 			#    app.logger.info(albu[11]["path"]
 			return render_template('blackpanther.html',albu=albu3)
 
+@app.route('/Damn')
+@is_logged_in
+def damn():
+	cur=mysql.connection.cursor()
+	cur.execute("SELECT * FROM songs_list WHERE album LIKE 'Ken%'")
+	albu4=cur.fetchall()
+	result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
+	songs=cur.fetchall()
+	if result>0:
+		return render_template('damn.html',songs=songs,albu=albu4)
+	else:
+		songs=0
+		return render_template('damn.html',albu=albu4,song=songs)
+	cur.close()
+	#    app.logger.info(albu[11]["path"]
+	return render_template('damn.html',albu=albu4)
+    
 if __name__=='__main__':
     app.secret_key='secret123'
     app.run(debug=True)
