@@ -4,41 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Music Player</title>
-<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-
+<!--<img src=background1.jpg>-->
 <audio id="audio">
-    <source id="shit" src="{{albu[0]["path"]}}">
+<source id="shit" src="{{albu[0]["path"]}}">
 </audio>
 </head>
 <body>
 
 <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <button class="q"  onclick="update1()">Aayat</button>
-        <button class="q"  onclick="update2()">Hawayein</button>
-        <button class="q"  onclick="update3()">Laal Ishq</button>
-        <button class="q"  onclick="update4()">Meet</button>
-        <button class="q"  onclick="update5()">Musafir</button>
-        <button class="q"  onclick="update6()">Pal</button>
-        <button class="q"  onclick="update7()">Phir Bhi Tumko Chahunga</button>
-        <button class="q"  onclick="update8()">Raabta</button>
-        <button class="q"  onclick="update9()">Shayad</button>
-        <button class="q"  onclick="update10()">Soch Na Sake</button>
-        <button class="q"  onclick="update11()">Tere Sang</button>
-        <button class="q"  onclick="update12()">Tu Hi Hai Aashiqui</button>
-        <button class="q"  onclick="#">End Of Album</button>
-</div>    
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<button class="q" onclick="update1()">Airplanes</button>
+			<button class="q" onclick="update2()">Broken Home</button>
+			<button class="q"  onclick="update3()">Castaway</button>
+			<button class="q"  onclick="update4()">Catch Fire</button>
+			<button class="q"  onclick="update5()">Fly Away</button>
+			<button class="q"  onclick="update6()">Hey Everybody</button>
+			<button class="q"  onclick="update7()">Invisible</button>
+			<button class="q"  onclick="update8()">Jet Black Heart</button>
+			<button class="q"  onclick="update9()">Money</button>
+			<button class="q"  onclick="update10()">Outer Space</button>
+			<button class="q"  onclick="update11()">Permanent Vacation</button>
+			<button class="q"  onclick="update12()">Safety Pin</button>
+      <button class="q"  onclick="update13()">San Francisco</button>
+      <button class="q"  onclick="update14()">The Girl Who</button>
+      <button class="q"  onclick="#">End Of Album</button>
+
+</div>
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 <div class="audio-player">
         <div class="cover-art">
-          <img src="static/images/demo/gallery/Arijit.png" alt="">
-
+          <img src="static/images/demo/gallery/summer.png" alt="">
         </div>
         <div class="info">
-            <h2>Arijit Singh</h2>
-            <h3 id="name"> Aayat </h3>
+            <h2>5 Seconds Of Summer</h2>
+            <h3 id="name">Airplanes</h3>
             <p id="timeleft">00:00</p>
             <p id="s_id">{{albu[0]['id']}}</p>
             <div class="progressbar_slide">
@@ -115,174 +117,213 @@
 
     function update1(){
         song=1;
-        songid={{albu[0]["id"]}};
+        songid={{albu[0]["id"]}}
         $("#play_btn").hide();
         $("#pause_btn").show();
         document.getElementById('shit').src="{{albu[0]["path"]}}";
         document.getElementById("audio").load();
         document.getElementById("audio").play();
+        document.getElementById('name').innerHTML="Airplanes";
         document.getElementById("s_id").innerHTML=songid;
-        document.getElementById('name').innerHTML="Aayat";
     }
 
             function update2(){
               song=2;
-              songid={{albu[1]["id"]}};
+              songid={{albu[1]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
-              document.getElementById('shit').src= "{{albu[1]["path"]}}";
+              nameprev = "Ready For It";
+              namenext = "Did Something Bad";
+              document.getElementById('shit').src="{{albu[1]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Broken Home";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Hawayein";
           }
 
             function update3(){
               song=3;
-              songid={{albu[2]["id"]}};
+              songid={{albu[2]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
+              nameprev = "End Game";
+              namenext = "Don't Blame Me";
               document.getElementById('shit').src="{{albu[2]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Castaway";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Laal Ishq";
           }
             function update4(){
-              songid={{albu[3]["id"]}};song=4;
-
+              song=4;
+              songid={{albu[3]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
+              namenext = "Happy New Year";
+              nameprev = "Did Something Bad";
               document.getElementById('shit').src="{{albu[3]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Catch Fire";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Meet";
           }
 
             function update5(){
               song=5;
-              songid={{albu[4]["id"]}};
+              songid={{albu[4]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
-              document.getElementById('shit').src="/static/music/Arijit Singh/Tere Sang.mp3";
+              nameprev = "Delicate";
+              namenext = "Did Something Bad";
+              document.getElementById('shit').src="{{albu[4]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Fly Away";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Musafir";
           }
+
             function update6(){
               song=6;
-              songid={{albu[5]["id"]}};
+              songid={{albu[5]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
+              nameprev = "Delicate";
+              namenext = "So It Goes";
               document.getElementById('shit').src="{{albu[5]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Hey Everyone";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Pal";
           }
 
             function update7(){
               song=7;
-              songid={{albu[6]["id"]}};
+              songid={{albu[6]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
-              nameprev = "Soch Na Sake";
-              namenext = "Raabta";
+              nameprev = "Look What You";
+              namenext = "Gorgeous";
               document.getElementById('shit').src="{{albu[6]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Invisble";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Phir Bhi Tumko Chahunga";
           }
 
             function update8(){
               song=8;
-              songid={{albu[7]["id"]}};
+              songid={{albu[7]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
               document.getElementById('shit').src="{{albu[7]["path"]}}";
-              nameprev = "Phir Bhi Tumko Chahunga";
-              namenext = "Raabta";
+              nameprev = "So It Goes";
+              namenext = "Gateway Car";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Jet Black Heart";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Raabta";
           }
 
             function update9(){
               song=9;
-              songid={{albu[8]["id"]}};
+              songid={{albu[8]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
-              nameprev = "Shayad";
-              namenext = "Soch Na Sake";
+              nameprev = "Gorgeous";
+              namenext = "Did Something Bad";
               document.getElementById('shit').src="{{albu[8]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
+              document.getElementById('name').innerHTML="Money";
               document.getElementById("s_id").innerHTML=songid;
-              document.getElementById('name').innerHTML="Shayad";
           }
 
             function update10(){
               song=10;
-              songid={{albu[9]["id"]}};
+              songid={{albu[9]["id"]}}
               $("#play_btn").hide();
               $("#pause_btn").show();
-              nameprev = "Meet";
-              namenext = "Laal Ishq";
+              nameprev = "Happy New Year";
+              namenext = "Did Something Bad";
               document.getElementById('shit').src="{{albu[9]["path"]}}";
               document.getElementById("audio").load();
               document.getElementById("audio").play();
-              document.getElementById('name').innerHTML="Soch Na Sake";
+              document.getElementById('name').innerHTML="Outer Space";
               document.getElementById("s_id").innerHTML=songid;
           }
 
                     function update11(){
                       song=11;
-                      songid={{albu[10]["id"]}};
+                      songid={{albu[10]["id"]}}
                       $("#play_btn").hide();
                       $("#pause_btn").show();
-                      nameprev = "Soch Na Sake";
-                      namenext = "Lal Ishq";
+                      nameprev = "Happy New Year";
+                      namenext = "Did Something Bad";
                         document.getElementById('shit').src="{{albu[10]["path"]}}";
                         document.getElementById("audio").load();
                         document.getElementById("audio").play();
+                        document.getElementById('name').innerHTML="Permanent Vacation";
                         document.getElementById("s_id").innerHTML=songid;
-                        document.getElementById('name').innerHTML="Tere Sang";
                     }
 
                     function update12(){
                       song=12;
-                      songid={{albu[11]["id"]}};
+                      songid={{albu[11]["id"]}}
                       $("#play_btn").hide();
                       $("#pause_btn").show();
+                      nameprev = "Happy New Year";
+                      namenext = "Did Something Bad";
                         document.getElementById('shit').src="{{albu[11]["path"]}}";
-                        console.log("{{albu[11]["path"]}}")
+                        document.getElementById('name').innerHTML="Safety Pin";
+                        document.getElementById("s_id").innerHTML=songid;
                         document.getElementById("audio").load();
                         document.getElementById("audio").play();
-                        document.getElementById("s_id").innerHTML=songid;
-                        document.getElementById('name').innerHTML="Tu Hi Aashiqui";
-
                     }
-    
+
+
+                                        function update13(){
+                                          song=13;
+                                          songid={{albu[12]["id"]}}
+                                          $("#play_btn").hide();
+                                          $("#pause_btn").show();
+                                          nameprev = "Happy New Year";
+                                          namenext = "Did Something Bad";
+                                            document.getElementById('shit').src="{{albu[12]["path"]}}";
+                                            document.getElementById('name').innerHTML="San Francisco";
+                                            document.getElementById("s_id").innerHTML=songid;
+                                            document.getElementById("audio").load();
+                                            document.getElementById("audio").play();
+                                        }
+
+                                                            function update14(){
+                                                              song=14;
+                                                              songid={{albu[14]["id"]}}
+                                                              $("#play_btn").hide();
+                                                              $("#pause_btn").show();
+                                                              nameprev = "Happy New Year";
+                                                              namenext = "Did Something Bad";
+                                                                document.getElementById('shit').src="{{albu[14]["path"]}}";
+                                                                document.getElementById('name').innerHTML="The Girl Who";
+                                                                document.getElementById("s_id").innerHTML=songid;
+                                                                document.getElementById("audio").load();
+                                                                document.getElementById("audio").play();
+                                                            }
 
                     function next(){
-                      if(song+1===14) song=12;
-                      song=((song+1)%14+14)%14;
-                      $("#play_btn").hide();
-                      $("#pause_btn").show();
+                      if(song+1===15) song=14;
+                      song=((song+1)%15+15)%15;
+                      $("#play_btn").show();
+                      $("#pause_btn").hide();
                       console.log(song);
                       update="update"+song+"()";
                       eval(update);
                     }
                     function prev(){
                       if(song-1===0) song=2;
-                      song=((song-1)%14+14)%14;
+                      song=((song-1)%15+15)%15;
                       console.log(song);
-                      $("#play_btn").hide();
-                      $("#pause_btn").show();
+                      $("#play_btn").show();
+                      $("#pause_btn").hide();
                       update="update"+song+"()";
                       eval(update);
                     }
@@ -293,6 +334,7 @@
                       $("#play_btn").show();
                       $("#pause_btn").hide();
                     }
+
                     function myFunction() {
                         document.getElementById("myDropdown").classList.toggle("show");
                     }

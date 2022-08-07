@@ -46,7 +46,7 @@ class RegisterForm(Form):
     password=PasswordField('Password',[validators.DataRequired(),validators.EqualTo('confirm',message='Password do not match')])
     confirm=PasswordField('confirm Password')
 
-#register
+#register_user
 @app.route('/register',methods=['GET','POST'])
 def register():
     form =RegisterForm(request.form)
@@ -62,11 +62,8 @@ def register():
         password1=password
 
         token=s.dumps(email,salt='email-confirm')
-
         msg=Message('Confirm Email',sender='tejaskumar911336@gmail.com',recipients=[email])
-
         link=url_for('confirm_email',token=token,_external=True)
-
         msg.body='Your link is {}'.format(link)
 
         mail.send(msg)
@@ -147,6 +144,12 @@ def is_logged_in(f):
 			return redirect(url_for('login'))
 	return wrap
 
+#logout
+@app.route('/logout')
+def logout():
+	session.clear()
+	flash('you are now logout','success')
+	return redirect(url_for('login'))
 
 #search
 @app.route('/new',methods=['POST'])
@@ -168,7 +171,7 @@ def new():
 				if div.get("data-context-item-id") != None:
 					video_id = div.get("data-context-item-id")
 					break
-			os.system('youtube-dl --extract-audio --audio-format mp3 -o "akhil.mp3" https://www.youtube.com/watch?v='+video_id)
+			os.system('youtube-dl --extract-audio --audio-format mp3 -o "subodh.mp3" https://www.youtube.com/watch?v='+video_id)
 			os.system("mv *.mp3 ./static/music/")
 			os.rename("static/music/akhil.mp3","static/music/"+song_name)
 			string="/static/music/"+song_name
@@ -203,6 +206,7 @@ def dashboard():
 class make_playlist(Form):
 	title=StringField('Name',[validators.Length(min=1,max=25)])
 
+
 @app.route('/create_playlist',methods=['GET','POST'])
 @is_logged_in
 def create_playlist():
@@ -224,6 +228,7 @@ def create_playlist():
 		return redirect(url_for('dashboard'))
 	return render_template('add_playlist.html',form=form)
 
+
 @app.route('/users')
 @is_logged_in
 def users():
@@ -238,6 +243,7 @@ def users():
 	return render_template('Dashboard.html',msg=msg)
 	cur.close()
 
+
 @app.route('/users/playlist/<string:idd>')
 @is_logged_in
 def u_play(idd):
@@ -251,11 +257,12 @@ def u_play(idd):
 	return render_template('das.html',msg=msg)
 	cur.close()
 
+
 @app.route('/Arijit Singh')
 @is_logged_in
 def play():
 	cur=mysql.connection.cursor()
-	cur.execute("SELECT * FROM songs_list WHERE album LIKE 'rep%'")
+	cur.execute("SELECT * FROM songs_list WHERE album LIKE 'Ari%'")
 	albu=cur.fetchall()
 	result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
 	songs=cur.fetchall()
@@ -269,7 +276,7 @@ def play():
 
 @app.route('/KK')
 @is_logged_in
-def cam():
+def Kant():
 		cur=mysql.connection.cursor()
 		cur.execute("SELECT * FROM songs_list WHERE album LIKE 'Cam%'")
 		albu1=cur.fetchall()
@@ -331,9 +338,127 @@ def damn():
 		songs=0
 		return render_template('damn.html',albu=albu4,song=songs)
 	cur.close()
-	#    app.logger.info(albu[11]["path"]
 	return render_template('damn.html',albu=albu4)
-    
+
+@app.route('/SGFG')
+@is_logged_in
+def sgfg():
+	cur=mysql.connection.cursor()
+	cur.execute("SELECT * FROM songs_list WHERE album LIKE '5 S%'")
+	albu5=cur.fetchall()
+	result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
+	songs=cur.fetchall()
+	if result>0:
+		return render_template('sgfg.html',songs=songs,albu=albu5)
+	else:
+		songs=0
+		return render_template('sgfg.html',albu=albu5,song=songs)
+	cur.close()
+
+
+@app.route('/revival')
+@is_logged_in
+def revival():
+	cur=mysql.connection.cursor()
+	cur.execute("SELECT * FROM songs_list WHERE album LIKE 'Emi%'")
+	albu6=cur.fetchall()
+	result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
+	songs=cur.fetchall()
+	if result>0:
+		return render_template('revival.html',songs=songs,albu=albu6)
+	else:
+		songs=0
+		return render_template('revival.html',albu=albu6,song=songs)
+	cur.close()
+
+@app.route('/ManOfWoods')
+@is_logged_in
+def manof():
+	cur=mysql.connection.cursor()
+	cur.execute("SELECT * FROM songs_list WHERE album LIKE 'Jus%'")
+	albu7=cur.fetchall()
+	result=cur.execute("SELECT * from songs WHERE user_id = %s",[session['id']])
+	songs=cur.fetchall()
+	if result>0:
+		return render_template('manofwoods.html',songs=songs,albu=albu7)
+	else:
+		songs=0
+		return render_template('manofwoods.html',albu=albu7,song=songs)
+	cur.close()
+
+
+@app.route('/save_playlist/<string:name>/<string:ide>')
+@is_logged_in
+def save(name,ide):
+	res=""
+	playl=[]
+	flag=0
+	cur=mysql.connection.cursor()
+	cur.execute("SELECT * FROM songs WHERE title = %s and user_id=%s",([name],[session['id']]))
+	result=cur.fetchone()
+	print(name)
+	if result['_songs'] is None:
+		cur.execute("UPDATE songs SET _songs=%s WHERE title=%s and user_id=%s",(ide,name,session['id']))
+		mysql.connection.commit()
+
+	else:
+		res=result['_songs']
+		playl=res.split("'")
+
+		for i in playl:
+			if i==ide:
+				flag=1
+		if flag==1:
+			flash("songs already exist",'danger')
+			return redirect(url_for('dashboard'))
+		else:
+			cur.execute("UPDATE songs SET _songs=CONCAT(%s'',_songs) WHERE title=%s and user_id=%s",(ide,name,session['id']))
+
+		mysql.connection.commit()
+
+	cur.close()
+	flash("Song is added to playlist",'success')
+	return redirect(url_for('dashboard'))
+
+
+@app.route('/delete_playlist/<string:idd>')
+@is_logged_in
+def delete_playlist(idd):
+	cur=mysql.connection.cursor()
+	cur.execute("delete  FROM songs WHERE id =%s",[idd])
+	mysql.connection.commit()
+	cur.close()
+	flash("Playlist successfully deleted",'success')
+	return redirect(url_for('dashboard'))
+
+@app.route('/connect')
+def connect():
+	return render_template('connect.html')
+
+@app.route('/play_playlist/<string:idd>')
+@is_logged_in
+def play_playlist(idd):
+	res=""
+	playl=[]
+	data=[]
+	cur=mysql.connection.cursor()
+	cur.execute("SELECT * FROM songs WHERE id =%s",[idd])
+	result=cur.fetchone()
+	res=result['_songs']
+	if res is None:
+		flash("no song in playlist",'danger')
+		return redirect(url_for('dashboard'))
+	else:
+		playl=res.split("'")
+		length=len(playl)
+		for i in playl:
+				cur.execute("SELECT * FROM songs_list WHERE id=%s",[i])
+				data.append(cur.fetchone())
+		cur.execute("SELECT * FROM songs WHERE id=%s",[idd])
+		name=cur.fetchone()
+		Name=name['title']
+		return render_template('playlist.html',albu=data,Name=Name,len=length)
+
 if __name__=='__main__':
     app.secret_key='secret123'
     app.run(debug=True)
