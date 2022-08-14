@@ -173,7 +173,7 @@ def new():
 					break
 			os.system('youtube-dl --extract-audio --audio-format mp3 -o "subodh.mp3" https://www.youtube.com/watch?v='+video_id)
 			os.system("mv *.mp3 ./static/music/")
-			os.rename("static/music/akhil.mp3","static/music/"+song_name)
+			os.rename("static/music/subodh.mp3","static/music/"+song_name)
 			string="/static/music/"+song_name
 			cur=mysql.connection.cursor()
 			cur.execute("INSERT INTO songs_list(path,album,song_name) VALUES (%s,%s,%s)",(string,"NA",song_name))
